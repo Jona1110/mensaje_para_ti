@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor, Atziri 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="background-animation"></div> <div id="container">
+        <div id="notification" class="hidden">
+            💫 “Aún no es hora de abrir la carta, espera un poquito más...”
+        </div>
+
+        <button id="tester-button" title="Solo para pruebas">Abrir Tester</button>
+
+        <div id="pre-open-content">
+            <h1 class="main-title">¡Una sorpresa para mi amor!</h1>
+            
+            <div id="countdown-wrapper">
+                <p>La magia comienza en:</p>
+                <div id="countdown">
+                    <span id="days" class="time-unit">00 <small>Días</small></span>
+                    <span id="hours" class="time-unit">00 <small>Horas</small></span>
+                    <span id="minutes" class="time-unit">00 <small>Minutos</small></span>
+                    <span id="seconds" class="time-unit">00 <small>Segundos</small></span>
+                </div>
+            </div>
+
+            <div id="envelope-area">
+                <p id="press-text">Presiona el sobre para abrirlo 💌</p>
+                
+                <div id="envelope-wrapper">
+                    <div id="envelope">
+                        <div id="flap"></div>
+                        <div id="body"></div>
+                        <div id="stamp">💖</div> </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="letter-content" class="hidden">
+            <div id="letter">
+                <h1 class="letter-title">Mi Amor, Atziri:</h1>
+                <p class="intro-paragraph">
+                    Mi amor, sé que en este momento estás disfrutando de la playa, del sol y de momentos bonitos, <span class="highlight"> </span>pero quiero que sepas que te pienso en cada instante.</p>
+                <p>
+                    No importa la distancia ni el tiempo, porque mi corazón sigue contigo. Estoy contando los días para volver a verte, abrazarte y decirte todo lo que te he guardado.
+                </p>
+                <p>
+                   Esta carta es solo un pequeño recordatorio de cuánto te amo, de lo feliz que soy contigo, y de que aunque estemos lejos, siempre hay un pedacito de mí allá contigo.
+                </p>
+                <p class="signature">
+                    <span class="heart-icon">💖</span> <span class="signature-text">Te adoro con todo mi ser, mi vida. 💖
+— Jony</span>
+                </p>
+            </div>
+            <div class="heart heart-1"></div>
+            <div class="heart heart-2"></div>
+            <div class="heart heart-3"></div>
+            <div class="heart heart-4"></div>
+            <div class="heart heart-5"></div>
+        </div>
+    </div>
+
+    <audio id="bell-sound" src="campanita.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

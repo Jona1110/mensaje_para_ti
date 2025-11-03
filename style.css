@@ -1,0 +1,536 @@
+/* Variables para colores y fuentes */
+:root {
+    --primary-pink: #ffafcc; /* Rosa principal */
+    --light-pink: #ffc8dd;   /* Rosa claro */
+    --dark-pink: #e07a9e;    /* Rosa oscuro/frambuesa */
+    --accent-gold: #ffd700;  /* Toque dorado para resaltar */
+    --envelope-color: #fce8ed; /* Color del sobre más suave */
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --text-color-dark: #333;
+    --text-color-light: #fff;
+
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Great Vibes', cursive; /* Fuente cursiva para títulos/firmas */
+}
+
+/* --- Estilos Generales y Fondo Animado --- */
+body {
+    font-family: var(--font-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f7e1ed 0%, #ffe9f2 100%); /* Fondo más suave y etéreo */
+    color: var(--text-color-dark);
+    overflow: hidden; /* Oculta el scroll durante las animaciones */
+    position: relative; /* Para el fondo animado */
+}
+
+/* Fondo animado con círculos/burbujas */
+#background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Detrás del contenido */
+}
+
+#background-animation::before,
+#background-animation::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: floatCircles 20s infinite ease-in-out;
+}
+
+#background-animation::before {
+    width: 300px;
+    height: 300px;
+    background-color: var(--light-pink);
+    top: -50px;
+    left: -100px;
+}
+
+#background-animation::after {
+    width: 400px;
+    height: 400px;
+    background-color: var(--primary-pink);
+    bottom: -100px;
+    right: -150px;
+    animation-delay: 5s; /* Para que se muevan de forma diferente */
+}
+
+@keyframes floatCircles {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translateY(-30px) rotate(15deg); opacity: 0.8; }
+    100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+}
+
+
+#container {
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Asegura que el contenido esté por encima del fondo */
+    max-width: 90%;
+}
+
+/* --- Título Principal y Contador --- */
+.main-title {
+    font-family: var(--font-secondary);
+    font-size: 3.5rem;
+    color: var(--dark-pink);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px var(--shadow-color);
+    animation: fadeInScale 1.5s ease-out;
+}
+
+#countdown-wrapper {
+    margin-bottom: 40px;
+    animation: fadeIn 2s ease-out;
+}
+
+#countdown-wrapper p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark-pink);
+    margin-bottom: 15px;
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Más espacio entre unidades */
+    background: rgba(255, 255, 255, 0.7);
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.time-unit {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-pink);
+    line-height: 1;
+    position: relative;
+    padding: 5px 0;
+}
+
+.time-unit small {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Separador visual para el contador */
+.time-unit + .time-unit::before {
+    content: ':';
+    position: absolute;
+    left: -15px; /* Ajusta la posición del ':' */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color: var(--dark-pink);
+    opacity: 0.7;
+}
+#countdown .time-unit:first-child::before {
+    content: none; /* No hay ':' antes del primer elemento */
+}
+
+
+/* --- Estilos del Sobre y Texto --- */
+
+#envelope-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    margin-top: 50px; /* Más espacio */
+}
+
+#envelope-area:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+#press-text {
+    font-size: 1.6rem; /* Un poco más grande */
+    font-weight: 700;
+    margin-bottom: 40px; /* Más separado del sobre */
+    color: var(--dark-pink); /* Color más visible */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    animation: floatText 2s infinite alternate ease-in-out; /* Animación más suave */
+}
+
+@keyframes floatText {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+/* Estilos 3D del Sobre */
+#envelope-wrapper {
+    perspective: 1200px; /* Mayor perspectiva para más profundidad */
+}
+
+#envelope {
+    width: 320px; /* Un poco más grande */
+    height: 220px;
+    background-color: var(--envelope-color);
+    position: relative;
+    border-radius: 15px; /* Bordes más suaves */
+    box-shadow: 0 15px 30px var(--shadow-color), inset 0 0 15px rgba(255, 255, 255, 0.8);
+    transform: rotateX(0deg); /* Estado inicial */
+    transition: transform 0.6s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Cuerpo del sobre (parte trasera) */
+#body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--envelope-color);
+    border-radius: 15px;
+}
+
+/* Tapa superior del sobre */
+#flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55%; /* Ligeramente más grande */
+    background: linear-gradient(180deg, var(--dark-pink) 0%, var(--primary-pink) 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    z-index: 10;
+    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Animación más elástica */
+    border-radius: 0 0 15px 15px;
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sello decorativo en el sobre */
+#stamp {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--dark-pink);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color-light);
+    font-size: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 11; /* Encima de la solapa */
+    animation: stampPulse 2s infinite alternate;
+}
+
+@keyframes stampPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Estado de sobre abierto */
+.opened #flap {
+    transform: rotateX(180deg) translateY(5px); /* Gira la tapa y la baja un poco */
+    z-index: 5; /* Permite ver la carta debajo */
+}
+
+/* --- Estilos de la Carta (mensaje) --- */
+
+#letter-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Inicia más pequeño */
+    width: 90%;
+    max-width: 550px; /* Un poco más ancha */
+    z-index: 1; /* Detrás del sobre al inicio */
+    opacity: 0;
+    pointer-events: none; /* No interactuable hasta que sea visible */
+    transition: opacity 1s ease-in-out, transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Animación de escala */
+}
+
+#letter {
+    background: #ffffff;
+    padding: 50px; /* Más padding */
+    border-radius: 20px; /* Bordes más redondeados */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.9);
+    text-align: left;
+    transform: translateY(30px); /* Para el efecto de subida */
+    transition: transform 1s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden; /* Para que los corazones salgan bien */
+}
+
+#letter-content.visible {
+    opacity: 1;
+    z-index: 15; /* Delante de todo al estar abierta */
+    transform: translate(-50%, -50%) scale(1); /* Escala a tamaño normal */
+    pointer-events: all; /* Interactuable */
+}
+
+#letter-content.visible #letter {
+    transform: translateY(-20px); /* Mueve la carta hacia arriba al aparecer */
+}
+
+.letter-title {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    color: var(--dark-pink);
+    border-bottom: 3px solid var(--primary-pink);
+    padding-bottom: 15px;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#letter p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.intro-paragraph {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--dark-pink);
+}
+
+.highlight {
+    font-weight: 700;
+    color: var(--dark-pink);
+    text-shadow: 0 0 5px rgba(255, 200, 221, 0.7);
+}
+
+.signature {
+    text-align: right;
+    margin-top: 40px;
+    font-family: var(--font-secondary);
+    font-size: 2.2rem;
+    color: var(--dark-pink);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.heart-icon {
+    font-size: 1.8rem;
+    color: var(--dark-pink);
+    animation: heartBeat 1s infinite alternate;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* Corazones flotantes para la carta abierta */
+.heart {
+    position: absolute;
+    background-color: var(--primary-pink);
+    transform: rotate(-45deg);
+    opacity: 0;
+    animation: floatHeart 6s infinite ease-in-out;
+    filter: blur(1px); /* Efecto suave */
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -50%;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 50%;
+}
+
+/* Tamaños y posiciones aleatorias para los corazones */
+.heart-1 { width: 20px; height: 20px; top: 70%; left: 10%; animation-delay: 0s; }
+.heart-2 { width: 15px; height: 15px; top: 80%; left: 80%; animation-delay: 1.5s; }
+.heart-3 { width: 25px; height: 25px; top: 10%; left: 30%; animation-delay: 3s; }
+.heart-4 { width: 18px; height: 18px; top: 40%; left: 5%; animation-delay: 4.5s; }
+.heart-5 { width: 22px; height: 22px; top: 5%; right: 15%; animation-delay: 6s; }
+
+
+@keyframes floatHeart {
+    0% { transform: translateY(0) rotate(-45deg) scale(0); opacity: 0; }
+    20% { opacity: 0.8; transform: translateY(-20px) rotate(-45deg) scale(1); }
+    80% { opacity: 0.8; transform: translateY(-150px) rotate(-45deg) scale(1); }
+    100% { transform: translateY(-200px) rotate(-45deg) scale(0); opacity: 0; }
+}
+
+
+/* --- Estilos de la Notificación --- */
+
+#notification {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%); /* Escondida inicialmente */
+    background: linear-gradient(90deg, var(--dark-pink) 0%, var(--primary-pink) 100%);
+    color: white;
+    padding: 18px 35px; /* Un poco más grande */
+    border-radius: 15px 15px 0 0; /* Bordes más suaves */
+    box-shadow: 0 -8px 20px var(--shadow-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    z-index: 20;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.27), opacity 0.5s ease; /* Animación elástica */
+    min-width: 280px;
+}
+
+#notification.show {
+    transform: translateX(-50%) translateY(0); /* Muestra la notificación */
+    opacity: 1;
+}
+
+#notification.hidden {
+    opacity: 0;
+    pointer-events: none; /* No interactuable cuando está oculta */
+}
+
+/* --- Estilos del Botón Tester --- */
+
+#tester-button {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 12px 20px; /* Un poco más grande */
+    background-color: var(--dark-pink);
+    color: white;
+    border: none;
+    border-radius: 8px; /* Bordes más suaves */
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    z-index: 30;
+}
+
+#tester-button:hover {
+    background-color: #b05c75;
+    transform: translateY(-2px);
+}
+
+#tester-button:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Clases de Visibilidad / Animación --- */
+.hidden {
+    display: none;
+}
+
+/* Estado de apertura: oculta elementos previos */
+body.opened #pre-open-content {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Animaciones de entrada genéricas */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    #countdown {
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    .time-unit {
+        font-size: 1.8rem;
+    }
+    .time-unit small {
+        font-size: 0.7rem;
+    }
+    .time-unit + .time-unit::before {
+        left: -10px;
+        font-size: 1.8rem;
+    }
+
+    #press-text {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    #envelope {
+        width: 250px;
+        height: 170px;
+    }
+    #stamp {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+
+    #letter {
+        padding: 30px;
+    }
+    .letter-title {
+        font-size: 2.2rem;
+    }
+    #letter p {
+        font-size: 1rem;
+    }
+    .signature {
+        font-size: 1.8rem;
+    }
+    .heart-icon {
+        font-size: 1.5rem;
+    }
+
+    #tester-button {
+        top: 15px;
+        right: 15px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    #notification {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
